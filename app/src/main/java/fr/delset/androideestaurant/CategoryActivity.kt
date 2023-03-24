@@ -31,13 +31,13 @@ class CategoryActivity : AppCompatActivity() {
             LinearLayoutManager(this) // Définir le LayoutManager pour le RecyclerView
         adapter = CategoryAdapter(dishes) {
             val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("dish", it)
+       //    intent.putExtra("dish", it)
             startActivity(intent)
         }
         binding.categoryRecyclerView.adapter=adapter
-        getDishesFromServer()
+      //  getDishesFromServer()
     }
-
+/*
 private fun getDishesFromServer() {
     val queue = Volley.newRequestQueue(this)
     val url = "http://test.apicatering.bkuecodegames.com/menu"
@@ -58,7 +58,7 @@ private fun getDishesFromServer() {
     )
     queue.add(jsonObjectRequest) //ze
 
-}
+}*/
 
 }
 
