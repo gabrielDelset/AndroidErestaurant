@@ -56,7 +56,7 @@ private fun getDishesFromServer() {
             Log.e("CategoryActivity","erreur lors de l'appel ${error.localizeMessage}")
         }
     )
-    queue.add(jsonObjectRequest)
+    queue.add(jsonObjectRequest) //ze
 
 }
 
