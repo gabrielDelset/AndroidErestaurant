@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CategoryAdapter(private var dishes: List<String>, val ont) :
+class CategoryAdapter(private var dishes: List<String>, function: () -> Unit) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,7 +27,16 @@ class CategoryAdapter(private var dishes: List<String>, val ont) :
     override fun getItemCount(): Int {
         return dishes.size
     }
-    fun updateDishes(dishesFromAPI: ArrayList<String>){
+  /*  fun updateDishes(dishesFromAPI: ArrayList<String>){
         dishes = dishesFromAPI
-    }
+    }*/
 }
+
+
+/*
+
+
+
+
+
+ */

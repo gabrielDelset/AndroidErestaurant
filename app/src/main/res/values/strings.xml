@@ -18,5 +18,17 @@
         <item>Velouté de potiron</item>
     </string-array>
 
+    <string-array name="plat">
+        <item>Salade César</item>
+        <item>Tartare de saumon</item>
+        <item>Velouté de potiron</item>
+    </string-array>
+
+    <string-array name="dessert">
+        <item>Salade César</item>
+        <item>Tartare de saumon</item>
+        <item>Velouté de potiron</item>
+    </string-array>
+
 
 </resources>
