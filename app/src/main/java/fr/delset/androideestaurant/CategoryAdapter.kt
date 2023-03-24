@@ -27,9 +27,9 @@ class CategoryAdapter(private var dishes: List<String>, function: () -> Unit) :
     override fun getItemCount(): Int {
         return dishes.size
     }
-  /*  fun updateDishes(dishesFromAPI: ArrayList<String>){
+   fun updateDishes(dishesFromAPI: ArrayList<String>){
         dishes = dishesFromAPI
-    }*/
+    }
 }
 
 
