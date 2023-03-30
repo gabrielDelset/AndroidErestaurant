@@ -1,85 +1,78 @@
 package fr.delset.androideestaurant
 
-import android.app.DownloadManager
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import fr.delset.androideestaurant.databinding.ActivityCategoryBinding
-import android.content.Intent
 import android.util.Log
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import com.android.volley.Request
 import com.google.gson.Gson
-
-
-
-
-
+import fr.isen.jaxel.androiderestaurant.model.DataResult
+import fr.isen.jaxel.androiderestaurant.model.Items
 
 class CategoryActivity : AppCompatActivity() {
     private lateinit var adapter: CategoryAdapter
-    private lateinit var binding: ActivityCategoryBinding // Inclure la classe de liaison chatGPT
+    private lateinit var binding: ActivityCategoryBinding
+    private var category: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding =
-            ActivityCategoryBinding.inflate(layoutInflater) // Instancier la classe de liaison  chatGPT
+        binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.categoryTitle.text = intent.getStringExtra("category") ?: ""
+        category = intent.getStringExtra("category") ?: ""
 
-        val dishes = resources.getStringArray(R.array.dishes)
-            .toList() as ArrayList // Récupérer la liste des plats depuis les ressources
-        binding.categoryRecyclerView.layoutManager =
-            LinearLayoutManager(this) // Définir le LayoutManager pour le RecyclerView
-        adapter = CategoryAdapter(dishes) {
-            val intent = Intent(this, DetailActivity::class.java)
-       //    intent.putExtra("dish", it)
-            startActivity(intent)
-        }
-        binding.categoryRecyclerView.adapter=adapter
-      //  getDishesFromServer()
+        binding.categoryTitle.text = category
+
+        getDishesFromServer()
     }
 
     private fun getDishesFromServer() {
         val queue = Volley.newRequestQueue(this)
         val url = "http://test.api.catering.bluecodegames.com/menu"
-
-        val body = JSONObject()
-        body.put("id_shop", 1)
-
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.POST, url, body,
-            { response ->
-                Log.d("CategoryActivity", "Response : $response")
-                val data = Gson().fromJson(response.toString(), Dishinfo::class.java)
-                val dishes = data.data.firstOrNull { response.category == "Plats" }?.item?.map { response.title ?: "" }
-                adapter.updateDishes(dishes as ArrayList<String>)
+        val body = JSONObject().apply { put("id_shop", "1") }
+        val request = JsonObjectRequest(Request.Method.POST, url, body,
+            {
+                Log.d("CategoryActivity", "ça marche : $it")
+                GetinfoServer(it.toString(), category)
             },
-            { error ->
-                Log.e("CategoryActivity", "Erreur lors de l'appel : ${error.localizedMessage}")
+            {
+                Log.e("CategoryActivity", "ça marche pas")
             }
         )
-        queue.add(jsonObjectRequest)
+
+        queue.add(request)
+
     }
-/*
-    private fun parseJson(response: String, categoryTitle: String): ArrayList<String> {
-        val dishes = ArrayList<String>()
 
-        val gson = Gson()
-        val dataResult = gson.fromJson(response, Dishinfo::class.java)
 
-        val categoryData = dataResult.data.find { it.nameFr == categoryTitle }
-        categoryData?.item?.forEach { item ->
-            dishes.add(item.nameFr ?: "")
+    private fun GetinfoServer(data: String, category: String) {
+        val dishesResult = Gson().fromJson(data, DataResult::class.java)
+        val dishCategory = dishesResult.data.firstOrNull { it.nameFr == category }
+        val platList = arrayListOf<Items>()
+
+        for (dishCat in dishesResult.data) {
+            for (dish in dishCat.items) {
+                if (dishCat.nameFr == category) {
+                    platList.add(dish)
+                }
+            }
         }
 
-        return dishes
+        adapter = CategoryAdapter(platList) {
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("dish", it)
+            startActivity(intent)
+        }
+
+        binding.categoryRecyclerView.layoutManager = LinearLayoutManager(this)
+        binding.categoryRecyclerView.adapter = adapter
     }
-
-*/
-
 }
 
 
