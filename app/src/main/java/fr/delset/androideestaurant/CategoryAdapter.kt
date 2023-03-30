@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import fr.isen.jaxel.androiderestaurant.model.Items
 
-class CategoryAdapter(private var dishes: List<String>, function: () -> Unit) :
+class CategoryAdapter(private var dishes: List<Items>, function: (Items) -> Unit) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -21,14 +22,15 @@ class CategoryAdapter(private var dishes: List<String>, function: () -> Unit) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dish = dishes[position]
-        holder.categoryItem.text = dish
+        holder.categoryItem.text = dish.nameFr // update the TextView with the name of the dish
     }
 
     override fun getItemCount(): Int {
         return dishes.size
     }
-   fun updateDishes(dishesFromAPI: ArrayList<String>){
+    fun updateDishes(dishesFromAPI: List<Items>) {
         dishes = dishesFromAPI
+        notifyDataSetChanged() // refresh the RecyclerView
     }
 }
 
