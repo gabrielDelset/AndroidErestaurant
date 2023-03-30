@@ -3,15 +3,19 @@ package fr.delset.androideestaurant;
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import fr.isen.jaxel.androiderestaurant.model.Items
+import com.squareup.picasso.Picasso
+import fr.delset.androideestaurant.model.Items
 
-class CategoryAdapter(private var dishes: List<Items>, function: (Items) -> Unit) :
+class CategoryAdapter(private var dishes: List<Items>,val function: (Items) -> Unit) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val categoryItem: TextView = view.findViewById(R.id.categoryItem)
+        val categoryItem: TextView = view.findViewById(R.id.NomPlat)
+        val ImagePlat: ImageView = view.findViewById(R.id.ImagePlat)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,6 +27,14 @@ class CategoryAdapter(private var dishes: List<Items>, function: (Items) -> Unit
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dish = dishes[position]
         holder.categoryItem.text = dish.nameFr // update the TextView with the name of the dish
+        if (dish.images[0].isNotEmpty()){
+            Picasso.get().load(dishes[position].images[0])
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(holder.ImagePlat)
+        }
+        holder.itemView.setOnClickListener {
+            function(dish)
+        }
     }
 
     override fun getItemCount(): Int {

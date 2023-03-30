@@ -12,8 +12,8 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import com.android.volley.Request
 import com.google.gson.Gson
-import fr.isen.jaxel.androiderestaurant.model.DataResult
-import fr.isen.jaxel.androiderestaurant.model.Items
+import fr.delset.androideestaurant.model.DataResult   //j'ai piqué ça mais j'arrive ps a le faire solo
+import fr.delset.androideestaurant.model.Items         //j'ai piqué ça mais j'arrive ps a le faire solo
 
 class CategoryActivity : AppCompatActivity() {
     private lateinit var adapter: CategoryAdapter

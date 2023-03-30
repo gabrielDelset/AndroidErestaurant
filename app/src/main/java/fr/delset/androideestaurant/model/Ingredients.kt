@@ -1,4 +1,4 @@
-package fr.isen.jaxel.androiderestaurant.model
+package fr.delset.androideestaurant.model
 import com.google.gson.annotations.SerializedName
 
 

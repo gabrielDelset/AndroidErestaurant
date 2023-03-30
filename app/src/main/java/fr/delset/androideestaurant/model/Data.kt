@@ -1,7 +1,7 @@
-package fr.isen.jaxel.androiderestaurant.model
+package fr.delset.androideestaurant.model
 
 import com.google.gson.annotations.SerializedName
-import fr.isen.jaxel.androiderestaurant.model.Items
+import fr.delset.androideestaurant.model.Items
 
 data class Data (
 
