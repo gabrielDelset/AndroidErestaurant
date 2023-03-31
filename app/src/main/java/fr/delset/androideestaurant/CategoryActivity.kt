@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import com.android.volley.Request
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import fr.delset.androideestaurant.model.DataResult
 import fr.delset.androideestaurant.model.Items
 
@@ -66,7 +67,8 @@ class CategoryActivity : AppCompatActivity() {
 
         adapter = CategoryAdapter(platList) {
             val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("dish", it)
+            intent.putExtra("dishTitle", it.nameFr)
+            intent.putExtra("dishDes", it.images)
             startActivity(intent)
         }
 

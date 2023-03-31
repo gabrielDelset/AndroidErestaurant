@@ -7,6 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import fr.delset.androideestaurant.databinding.ActivityHomeBinding
 
+//je me suis aidé du code d'illeona pour certaines partie , c'est pour cela que certaines parties de code ont les mêmes noms de varibles ou de fonction
+//mais la pluspart de ce que j'ai pris à été modifié / adapté
+
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
